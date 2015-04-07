@@ -12,7 +12,7 @@
 <body>
 	<div class="container">
 		<h1 class="header">
-			Your On Team 
+			You're On Team 
 			<span class="teamRed" data-bind="visible: faction() == 0">RED!</span>
 			<span class="teamGreen" data-bind="visible: faction() == 1">GREEN!</span>
 			<span class="teamBlue" data-bind="visible: faction() == 2">BLUE!</span>
@@ -58,6 +58,7 @@ socket.on('boxClicked', function (boxCoords) {
 	box.css('background-color', 'rgb('+thebox[0]+','+thebox[1]+',' + thebox[2]+')')
 });
 
+
 for (var i = 0; i < gridWidth; i++) {
 	allboxs[i] = new Array(gridWidth);
 	for (var x = 0; x < gridWidth; x++) {
@@ -69,16 +70,38 @@ for (var i = 0; i < gridWidth; i++) {
 	}
 	
 	allboxs.click = function(a, b, faction) {
-			for(var y =0;y<3;y++) {
-				allboxs[a][b][y] -=15;
-				if(allboxs[a][b][y] <0) allboxs[a][b][y] =0;
+		for(var y =0;y<3;y++) {
+			allboxs[a][b][y] -=15;
+			if(allboxs[a][b][y] <0) allboxs[a][b][y] =0;
+		}
+		
+		allboxs[a][b][faction] +=30;
+		
+		if(allboxs[a][b][faction] > 255) allboxs[a][b][faction] = 255;
+	};
+}
+
+var hasJoined = false;
+socket.on('join', function (grid) {
+	if(hasJoined) return;
+	else hasJoined = true;
+	
+	for(x=0; x<gridWidth; x++) {
+		for(y=0; y<gridWidth; y++) {
+			var cellFactionSum = 0;
+			for(z=0; z<3; z++) {
+				cellFactionSum += grid[x][y][z];
 			}
 			
-			allboxs[a][b][faction] +=30;
-			
-			if(allboxs[a][b][faction] > 255) allboxs[a][b][faction] = 255;
-		};
-}
+			var row = $('#row'+y);
+			var box = row.children('#col'+x);
+			allboxs[x][y] = grid[x][y]
+			box.css('background-color', 'rgb('+grid[x][y][0]+', '+grid[x][y][1]+', '+grid[x][y][2]+')');
+		}
+	}
+});
+
+socket.emit('join');
 
 $('.container').mousemove(function (e) {
 	e.preventDefault();
