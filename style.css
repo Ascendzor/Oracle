@@ -9,15 +9,23 @@
 	margin-right: -3px;
 }
 
-.container {
+.grid {
 	-webkit-user-select: none; /* webkit (safari, chrome) browsers */
     -moz-user-select: none; /* mozilla browsers */
     -khtml-user-select: none; /* webkit (konqueror) browsers */
     -ms-user-select: none; /* IE10+ */
 }
 
-.container:hover {
-	cursor: initial;
+.teamRed {
+	color: red;
+}
+
+.teamGreen {
+	color: green;
+}
+
+.teamBlue {
+	color: blue;
 }
 
 .grid-cell {

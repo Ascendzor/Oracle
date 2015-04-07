@@ -10,11 +10,18 @@
 	
 </head>
 <body>
-	<h1>Your On Team</h1><h1 id = "team"></h1>
-	<div class="container" data-bind="foreach: new Array(width())">
-		<div class="grid-row" data-bind="foreach: new Array($parent.width()), attr: {id: 'row'+$index()}">
-			<div class="grid-cell" data-bind="click: function() {$root.clickBox($index(), $parentContext.$index())}, attr: {id: 'col'+$index()}"></div>
-		</div>
+	<div class="container">
+		<h1>
+			Your On Team 
+			<span class="teamRed" data-bind="visible: faction() == 0">RED!</span>
+			<span class="teamGreen" data-bind="visible: faction() == 1">GREEN!</span>
+			<span class="teamBlue" data-bind="visible: faction() == 2">BLUE!</span>
+		</h1>
+		<div class="grid" data-bind="foreach: new Array(width())">
+			<div class="grid-row" data-bind="foreach: new Array($parent.width()), attr: {id: 'row'+$index()}">
+				<div class="grid-cell" data-bind="click: function() {$root.clickBox($index(), $parentContext.$index())}, attr: {id: 'col'+$index()}"></div>
+			</div>
+			</div>
 		</div>
 	</div>
 </body>
@@ -41,7 +48,7 @@ var viewModel = function() {
 	}
 }
  
-ko.applyBindings(new viewModel(), $('table')[0]);
+ko.applyBindings(new viewModel(), $('.container')[0]);
 
 socket.on('boxClicked', function (boxCoords) {
 	var thebox = allboxs[boxCoords.x][boxCoords.y];
