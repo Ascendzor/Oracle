@@ -6,8 +6,11 @@
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-debug.js'></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.js"></script>
+	
+	
 </head>
 <body>
+	<h1>Example page header <small>Subtext for header</small></h1>
 	<div class="container" data-bind="foreach: new Array(width())">
 		<div class="grid-row" data-bind="foreach: new Array($parent.width()), attr: {id: 'row'+$index()}">
 			<div class="grid-cell" data-bind="click: function () { clickBox($index(), $parentContext.$index()); }, attr: {id: 'col'+$index()}"></div>
@@ -55,15 +58,13 @@ var socket = io();
 	var thebox = allboxs[boxCoords.x][boxCoords.y];
 	allboxs.click(boxCoords.x,boxCoords.y);
 	
-	var box = $('#'+boxCoords.x + 'q' + boxCoords.y); //gives you element
+	var row = $('#row'+boxCoords.y);
+	var box = row.children('#col'+boxCoords.x);
 	box.css('background-color', 'rgb('+thebox[0]+','+thebox[1]+',' + thebox[2]+')')
  });
  
 this.clickBox = function (x, y) {
-	var col = $('#row'+y);
-	var box = col.children('#col'+x);
-	box.css('background-color', 'yellow');
-	socket.emit('boxClicked', {x: theBox.x, y: theBox.y});
+	socket.emit('boxClicked', {x: x, y: y});
 }
  </script>
 
