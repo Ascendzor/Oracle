@@ -10,22 +10,18 @@
 }
 
 .container {
-	margin-top: 100px;
-	padding: 0;
-	border: 2px solid black;
-	width: 861px;
+	-webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
 }
 
-.grid-row {
-	border-bottom: 1px solid black;
-	width: 859px;
-	height: 50px;
-	margin-right: 0;
+.container:hover {
+	cursor: initial;
 }
 
 .grid-cell {
 	display: inline-block;
 	width: 50px;
 	height: 50px;
-	border-right: 1px solid black;
 }

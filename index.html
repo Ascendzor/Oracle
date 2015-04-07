@@ -20,7 +20,8 @@
 </body>
 
 <script>
-var allboxs = new Array(12);
+var gridWidth = 16;
+var allboxs = new Array(gridWidth);
 var faction = Math.floor((Math.random() * 3 ));
 
 var header = $('#team');
@@ -54,32 +55,55 @@ for (var i = 0; i < 12; i++) {
 		};
 }
 var socket = io();
- var viewModel = function() {
+var viewModel = function() {
 	this.grid = ko.observableArray();
-	this.width = ko.observable(16);
+	this.width = ko.observable(gridWidth);
 	
 	for (x=0; x < this.width(); x++) {
 		for(y=0;y<this.width();y++){
 			this.grid().push({ x: x, y: y});
 		}
 	}
- }
+}
  
- ko.applyBindings(new viewModel(), $('table')[0]);
- 
- socket.on('boxClicked', function (boxCoords) {
+ko.applyBindings(new viewModel(), $('table')[0]);
+
+socket.on('boxClicked', function (boxCoords) {
 	console.log(boxCoords);
 	var thebox = allboxs[boxCoords.x][boxCoords.y];
-	allboxs.click(boxCoords.x,boxCoords.y);
-	
+	allboxs.click(boxCoords.x, boxCoords.y, boxCoords.faction);
 	var row = $('#row'+boxCoords.y);
 	var box = row.children('#col'+boxCoords.x);
 	box.css('background-color', 'rgb('+thebox[0]+','+thebox[1]+',' + thebox[2]+')')
- });
+});
  
-this.clickBox = function (x, y) {
-	socket.emit('boxClicked', {x: x, y: y});
+clickBox = function (x, y) {
+	socket.emit('boxClicked', {x: x, y: y, faction: faction});
 }
+
+for (var i = 0; i < gridWidth; i++) {
+	allboxs[i] = new Array(gridWidth);
+	for (var x = 0; x < gridWidth; x++) {
+		allboxs[i][x]= new Array(3);
+		allboxs[i][x][0] = 0;
+		allboxs[i][x][1] = 0;
+		allboxs[i][x][2] = 0;
+		$('.grid-cell').css('background-color', 'rgb(0, 0, 0)');
+	}
+	
+	allboxs.click = function(a, b, faction) {
+			for(var y =0;y<3;y++) {
+				allboxs[a][b][y] -=15;
+			}
+			allboxs[a][b][faction] +=30;
+		};
+}
+
+$('.container').mousemove(function (e) {
+	e.preventDefault();
+	$('#dragItem').position({ my: "left center", of: e, offset: "3 -3" });
+});
+
  </script>
 
 </html>
