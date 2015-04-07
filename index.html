@@ -20,14 +20,14 @@
 </body>
 
 <script>
-var allboxs = new Array(12);
+var gridWidth = 16;
+var allboxs = new Array(gridWidth);
 var faction = Math.floor((Math.random() * 3 ));
-
 
 var socket = io();
 var viewModel = function() {
 	this.grid = ko.observableArray();
-	this.width = ko.observable(16);
+	this.width = ko.observable(gridWidth);
 	
 	for (x=0; x < this.width(); x++) {
 		for(y=0;y<this.width();y++){
@@ -52,9 +52,9 @@ this.clickBox = function (x, y) {
 	socket.emit('boxClicked', {x: x, y: y});
 }
 
-for (var i = 0; i < 12; i++) {
-	allboxs[i] = new Array(12);
-	for (var x = 0; x < 12; x++) {
+for (var i = 0; i < gridWidth; i++) {
+	allboxs[i] = new Array(gridWidth);
+	for (var x = 0; x < gridWidth; x++) {
 		allboxs[i][x]= new Array(3);
 		allboxs[i][x][0] = 0;
 		allboxs[i][x][1] = 0;
