@@ -22,7 +22,6 @@
 <script>
 var gridWidth = 16;
 var allboxs = new Array(gridWidth);
-var faction = Math.floor((Math.random() * 3 ));
 
 var socket = io();
 var viewModel = function() {
@@ -45,16 +44,12 @@ var viewModel = function() {
 ko.applyBindings(new viewModel(), $('table')[0]);
 
 socket.on('boxClicked', function (boxCoords) {
-	console.log(boxCoords);
 	var thebox = allboxs[boxCoords.x][boxCoords.y];
 	allboxs.click(boxCoords.x, boxCoords.y, boxCoords.faction);
 	var row = $('#row'+boxCoords.y);
 	var box = row.children('#col'+boxCoords.x);
 	box.css('background-color', 'rgb('+thebox[0]+','+thebox[1]+',' + thebox[2]+')')
 });
- 
-clickBox = function (x, y) {
-}
 
 for (var i = 0; i < gridWidth; i++) {
 	allboxs[i] = new Array(gridWidth);
