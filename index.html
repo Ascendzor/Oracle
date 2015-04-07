@@ -24,36 +24,8 @@ var gridWidth = 16;
 var allboxs = new Array(gridWidth);
 var faction = Math.floor((Math.random() * 3 ));
 
-var header = $('#team');
-if(fation = 0)
-{
-	header.colo
-}
-else if(fation = 1)
-{
-	
-}
-else if(fation = 2)
-{
-	
-}
 
-for (var i = 0; i < 12; i++) {
-	allboxs[i] = new Array(12);
-	for (var x = 0; x < 12; x++) {
-		allboxs[i][x]= new Array(3);
-		allboxs[i][x][0] = 0;
-		allboxs[i][x][1] = 0;
-		allboxs[i][x][2] = 0;
-	}
-	allboxs.click = function(a,b) {
-			for(var y =0;y<3;y++) {
-				allboxs[a][b][y] -=15;
-			}
-			
-			allboxs[a][b][faction] +=30;
-		};
-}
+
 var socket = io();
 var viewModel = function() {
 	this.grid = ko.observableArray();
@@ -94,8 +66,14 @@ for (var i = 0; i < gridWidth; i++) {
 	allboxs.click = function(a, b, faction) {
 			for(var y =0;y<3;y++) {
 				allboxs[a][b][y] -=15;
+				if(allboxs[a][b][y] <0)
+					allboxs[a][b][y] =0;
 			}
+			
 			allboxs[a][b][faction] +=30;
+			
+			if(allboxs[a][b][faction] > 255)
+				allboxs[a][b][faction] = 255;
 		};
 }
 
