@@ -17,6 +17,25 @@
 </body>
 
 <script>
+var allboxs = new Array(12);
+var faction = Math.floor((Math.random() * 3 ));
+
+for (var i = 0; i < 12; i++) {
+	allboxs[i] = new Array(12);
+	for (var x = 0; x < 12; x++) {
+		allboxs[i][x]= new Array(3);
+		allboxs[i][x][0] = 0;
+		allboxs[i][x][1] = 0;
+		allboxs[i][x][2] = 0;
+	}
+	allboxs.click = function(a,b) {
+			for(var y =0;y<3;y++) {
+				allboxs[a][b][y] -=15;
+			}
+			
+			allboxs[a][b][faction] +=30;
+		};
+}
 var socket = io();
  var viewModel = function() {
 	this.grid = ko.observableArray();
@@ -33,6 +52,11 @@ var socket = io();
  
  socket.on('boxClicked', function (boxCoords) {
 	console.log(boxCoords);
+	var thebox = allboxs[boxCoords.x][boxCoords.y];
+	allboxs.click(boxCoords.x,boxCoords.y);
+	
+	var box = $('#'+boxCoords.x + 'q' + boxCoords.y); //gives you element
+	box.css('background-color', 'rgb('+thebox[0]+','+thebox[1]+',' + thebox[2]+')')
  });
  
 this.clickBox = function (x, y) {
