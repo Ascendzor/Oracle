@@ -40,7 +40,7 @@ for (var i = 0; i < 12; i++) {
 		};
 }
 var socket = io();
- var viewModel = function() {
+var viewModel = function() {
 	this.grid = ko.observableArray();
 	this.width = ko.observable(16);
 	
@@ -49,11 +49,11 @@ var socket = io();
 			this.grid().push({ x: x, y: y});
 		}
 	}
- }
+}
  
- ko.applyBindings(new viewModel(), $('table')[0]);
+ko.applyBindings(new viewModel(), $('table')[0]);
  
- socket.on('boxClicked', function (boxCoords) {
+socket.on('boxClicked', function (boxCoords) {
 	console.log(boxCoords);
 	var thebox = allboxs[boxCoords.x][boxCoords.y];
 	allboxs.click(boxCoords.x,boxCoords.y);
@@ -61,7 +61,7 @@ var socket = io();
 	var row = $('#row'+boxCoords.y);
 	var box = row.children('#col'+boxCoords.x);
 	box.css('background-color', 'rgb('+thebox[0]+','+thebox[1]+',' + thebox[2]+')')
- });
+});
  
 this.clickBox = function (x, y) {
 	socket.emit('boxClicked', {x: x, y: y});
