@@ -43,7 +43,6 @@ io.on('connection', function(socket){
 		}
 		
 		grid[a][b][boxCoords.faction] += 30;
-		
 		if(grid[a][b][boxCoords.faction] > 255) grid[a][b][boxCoords.faction] = 255;
 		
 		io.emit('boxClicked', boxCoords);
