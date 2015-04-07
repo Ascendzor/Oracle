@@ -6,6 +6,10 @@ app.get('/', function (req, res) {
   res.sendFile('index.html', { root: __dirname + '/' })
 })
 
+app.get('/style.css', function (req, res) {
+	res.sendFile('style.css', { root: __dirname + '/' });
+});
+
 var server = app.listen(13337, function () {
 
   var host = server.address().address;
