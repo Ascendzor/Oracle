@@ -1,3 +1,7 @@
+body {
+	background-color: rgb(245, 245, 245);
+}
+
 .square {
 	height:48px;
 	width:50px;
@@ -14,6 +18,12 @@
     -moz-user-select: none; /* mozilla browsers */
     -khtml-user-select: none; /* webkit (konqueror) browsers */
     -ms-user-select: none; /* IE10+ */
+	text-align: center;
+}
+
+.header {
+	text-align: center;
+	margin-bottom: 50px;
 }
 
 .teamRed {
