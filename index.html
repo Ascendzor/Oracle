@@ -64,14 +64,12 @@ for (var i = 0; i < gridWidth; i++) {
 	allboxs.click = function(a, b, faction) {
 			for(var y =0;y<3;y++) {
 				allboxs[a][b][y] -=15;
-				if(allboxs[a][b][y] <0)
-					allboxs[a][b][y] =0;
+				if(allboxs[a][b][y] <0) allboxs[a][b][y] =0;
 			}
 			
 			allboxs[a][b][faction] +=30;
 			
-			if(allboxs[a][b][faction] > 255)
-				allboxs[a][b][faction] = 255;
+			if(allboxs[a][b][faction] > 255) allboxs[a][b][faction] = 255;
 		};
 }
 
