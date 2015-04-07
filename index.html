@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="container rows" data-bind="foreach: grid">
-		<div class="col-sm-1" style="margin-top: 20px" data-bind="click: $parent.clickBox">
+		<div class="col-sm-1" style="margin-top: 20px" data-bind="click: $parent.clickBox, attr: {id: x + 'q' + y }">
 			test
 		</div>
 	</div>
@@ -25,6 +25,11 @@
 	
 	this.clickBox = function (theBox) {
 		console.log(theBox);
+		var box = $('#'+theBox.x + 'q' + theBox.y); //gives you element
+		
+		box.css('background-color', 'yellow');
+		console.log(box);
+		//debugger;
 	}
  }
  
