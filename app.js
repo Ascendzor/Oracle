@@ -17,7 +17,6 @@ var server = app.listen(13337, function () {
 
 io = io.listen(server);
 io.on('connection', function(socket){
-  console.log('a user connected');
   socket.on('boxClicked', function (boxCoords) {
 	io.emit('boxClicked', boxCoords);
   });

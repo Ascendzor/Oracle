@@ -27,7 +27,6 @@ var socket = io();
 	
 	this.clickBox = function (theBox) {
 		socket.emit('boxClicked', {x: theBox.x, y: theBox.y});
-		console.log(theBox);
 	}
  }
  
