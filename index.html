@@ -13,7 +13,7 @@
 	<h1>Your On Team</h1><h1 id = "team"></h1>
 	<div class="container" data-bind="foreach: new Array(width())">
 		<div class="grid-row" data-bind="foreach: new Array($parent.width()), attr: {id: 'row'+$index()}">
-			<div class="grid-cell" data-bind="click: function () { clickBox($index(), $parentContext.$index()); }, attr: {id: 'col'+$index()}"></div>
+			<div class="grid-cell" data-bind="click: function() {$root.clickBox($index(), $parentContext.$index())}, attr: {id: 'col'+$index()}"></div>
 		</div>
 		</div>
 	</div>
@@ -24,17 +24,21 @@ var gridWidth = 16;
 var allboxs = new Array(gridWidth);
 var faction = Math.floor((Math.random() * 3 ));
 
-
-
 var socket = io();
 var viewModel = function() {
+	var self = this;
 	this.grid = ko.observableArray();
 	this.width = ko.observable(gridWidth);
+	this.faction = ko.observable(Math.floor((Math.random() * 3 )));
 	
 	for (x=0; x < this.width(); x++) {
 		for(y=0;y<this.width();y++){
 			this.grid().push({ x: x, y: y});
 		}
+	}
+	
+	self.clickBox = function (x, y) {
+		socket.emit('boxClicked', {x: x, y: y, faction: self.faction()});
 	}
 }
  
@@ -50,7 +54,6 @@ socket.on('boxClicked', function (boxCoords) {
 });
  
 clickBox = function (x, y) {
-	socket.emit('boxClicked', {x: x, y: y, faction: faction});
 }
 
 for (var i = 0; i < gridWidth; i++) {
@@ -82,6 +85,5 @@ $('.container').mousemove(function (e) {
 	$('#dragItem').position({ my: "left center", of: e, offset: "3 -3" });
 });
 
- </script>
-
+</script>
 </html>
