@@ -2,12 +2,7 @@ var express = require('express');
 var app = express();
   
 app.get('/', function (req, res) {
-  res.sendfile('index.html', { root: __dirname + '/' })
-})
-
-app.get('/derp', function (req, res) {
-	res.send('derp')
-	console.log('harrow')
+  res.sendFile('index.html', { root: __dirname + '/' })
 })
 
 var server = app.listen(13337, function () {
