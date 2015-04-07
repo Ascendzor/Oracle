@@ -41,15 +41,14 @@ ko.applyBindings(new viewModel(), $('table')[0]);
 socket.on('boxClicked', function (boxCoords) {
 	console.log(boxCoords);
 	var thebox = allboxs[boxCoords.x][boxCoords.y];
-	allboxs.click(boxCoords.x,boxCoords.y);
-	
+	allboxs.click(boxCoords.x, boxCoords.y, boxCoords.faction);
 	var row = $('#row'+boxCoords.y);
 	var box = row.children('#col'+boxCoords.x);
 	box.css('background-color', 'rgb('+thebox[0]+','+thebox[1]+',' + thebox[2]+')')
 });
  
-this.clickBox = function (x, y) {
-	socket.emit('boxClicked', {x: x, y: y});
+clickBox = function (x, y) {
+	socket.emit('boxClicked', {x: x, y: y, faction: faction});
 }
 
 for (var i = 0; i < gridWidth; i++) {
@@ -61,11 +60,11 @@ for (var i = 0; i < gridWidth; i++) {
 		allboxs[i][x][2] = 0;
 		$('.grid-cell').css('background-color', 'rgb(0, 0, 0)');
 	}
-	allboxs.click = function(a,b) {
+	
+	allboxs.click = function(a, b, faction) {
 			for(var y =0;y<3;y++) {
 				allboxs[a][b][y] -=15;
 			}
-			
 			allboxs[a][b][faction] +=30;
 		};
 }
