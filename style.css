@@ -16,6 +16,10 @@
     -ms-user-select: none; /* IE10+ */
 }
 
+.container:hover {
+	cursor: initial;
+}
+
 .grid-cell {
 	display: inline-block;
 	width: 50px;

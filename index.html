@@ -69,6 +69,12 @@ for (var i = 0; i < gridWidth; i++) {
 			allboxs[a][b][faction] +=30;
 		};
 }
+
+$('.container').mousemove(function (e) {
+	e.preventDefault();
+	$('#dragItem').position({ my: "left center", of: e, offset: "3 -3" });
+});
+
  </script>
 
 </html>
