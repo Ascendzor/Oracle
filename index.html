@@ -1,15 +1,15 @@
 <html>
 <head>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link href="style.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-debug.js'></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.js"></script>
 </head>
 <body>
-	<div class="container rows" data-bind="foreach: grid">
-		<div class="col-sm-1" style="margin-top: 20px" data-bind="click: $parent.clickBox">
-			test
+	<div class="container" data-bind="foreach: grid">
+		<div class="square" data-bind="click: $parent.clickBox">
 		</div>
 	</div>
 </body>
@@ -19,8 +19,8 @@ var socket = io();
  var viewModel = function() {
 	this.grid = ko.observableArray();
 	
-	for (x=0; x < 12; x++) {
-		for(y=0;y<12;y++){
+	for (x=0; x < 16; x++) {
+		for(y=0;y<16;y++){
 			this.grid().push({ x: x, y: y});
 		}
 	}

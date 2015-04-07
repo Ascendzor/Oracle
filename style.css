@@ -1,0 +1,16 @@
+.square {
+	height:48px;
+	width:50px;
+	display: inline-block;
+	margin: 0;
+	border-style: solid;
+	border-color: black;
+	border-width: 0px;
+	margin-right: -4px;
+}
+
+.container {
+	margin-top: 100px;
+	width: 800px;
+	padding: 0;
+}
