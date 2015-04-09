@@ -13,7 +13,12 @@ for(x=0; x<gridWidth; x++) {
 			grid[x][y][z] = 0;
 		}
 	}
+	
 }
+
+grid[0][0][0] = 255;
+grid[0][gridWidth -1][1] = 255;
+grid[gridWidth -1 ][Math.floor(gridWidth/2)][2] = 255;
 
 app.get('/', function (req, res) {
   res.sendFile('index.html', { root: __dirname + '/' })

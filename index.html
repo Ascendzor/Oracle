@@ -42,7 +42,15 @@ var viewModel = function() {
 	}
 	
 	self.clickBox = function (x, y) {
-		socket.emit('boxClicked', {x: x, y: y, faction: self.faction()});
+		for(i = -1; i<2;i+=2)
+		{
+			if( x+i >-1 && x+i <gridWidth && allboxs[x+i][y][self.faction()] >60 ||  y+i >-1 && y+i <gridWidth && allboxs[x][i+y][self.faction()] >60)//shenanigans Dont worry troy i got dis
+			{
+				socket.emit('boxClicked', {x: x, y: y, faction: self.faction()});
+				break;
+			}
+		}
+		
 	}
 }
  
