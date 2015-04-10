@@ -88,9 +88,10 @@ for (var i = 0; i < gridWidth; i++) {
 }
 
 var hasJoined = false;
-socket.on('join', function (grid) {
-	if(hasJoined) return;
-	else hasJoined = true;
+socket.on('join', function (grid, resetBoard) {
+	if(!resetBoard)
+		if(hasJoined) return;
+		else hasJoined = true;
 	
 	for(x=0; x<gridWidth; x++) {
 		for(y=0; y<gridWidth; y++) {
